@@ -11,6 +11,7 @@ class Firm(models.Model):
     country = models.CharField(max_length=255, default='Norway') 
 
 
+
 class Project(models.Model):
     STYLE_HABITATION = 'H'
     STYLE_HOSPITAL = 'L'
