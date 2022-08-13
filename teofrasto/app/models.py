@@ -1,14 +1,16 @@
 
-from tkinter import CASCADE
+
 from django.db import models
 
 # Create your models here.
 
 class Firm(models.Model):
     firm_name =  models.CharField(max_length=255)
-    address = models.CharField(max_length=255, unique=True)
+    address = models.CharField(max_length=255, unique=False, null=True)
     phone_number =  models.CharField(max_length=255)
-    country = models.CharField(max_length=255, default='Norway') 
+    country = models.CharField(max_length=255, default='Norway')
+    class Meta:
+        ordering = ["id"]
 
 
 

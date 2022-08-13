@@ -4,7 +4,8 @@ from app.models import Architect, Firm, Project, Client
 class FirmSerializer(serializers.ModelSerializer):
     class Meta:
         model =  Firm
-        fields = ['id', 'firm_name', 'phone_number', 'country']
+        fields = ['id', 'firm_name', 'phone_number', 'country', 'address']
+        
     
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:

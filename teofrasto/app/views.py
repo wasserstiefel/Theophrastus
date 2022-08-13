@@ -7,30 +7,66 @@ from .serializers import ArchitectSerializer, FirmSerializer, ProjectSerializer,
 from rest_framework import status
 
 # Create your views here.
-@api_view()
+@api_view(['GET', 'PUT','DELETE'])
 def Architects(request, id):
-    
-        architect = get_object_or_404(Architect, pk=id)
+    architect = get_object_or_404(Architect, pk=id)
+    if request.method == 'GET':
         serializer =  ArchitectSerializer(architect)
         return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ArchitectSerializer(architect, data= request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        architect.delete()
+        id.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view()
+@api_view(['GET', 'PUT','DELETE'])
 def Firms(request, id):
-        firm  = get_object_or_404(Firm, pk=id)
+    firm  = get_object_or_404(Firm, pk=id)
+    if request.method == 'GET':
         serializer = FirmSerializer(firm)
         return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = FirmSerializer(firm, data= request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        firm.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view()
+@api_view(['GET', 'PUT','DELETE'])
 def Projects(request, id):
-        project = get_object_or_404(Project, pk=id)
+    project = get_object_or_404(Project, pk=id)
+    if request.method == 'GET':
         serializer = ProjectSerializer(project)
         return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ProjectSerializer(project, data= request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        project.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view()
+@api_view(['GET', 'PUT','DELETE'])
 def Clients(request, id):
     client =  get_object_or_404(Client, pk=id)
-    serializer = ClientSerializer(client)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        serializer = ClientSerializer(client)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ClientSerializer(client, data= request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        client.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST'])
 def Firm_List(request):
@@ -43,7 +79,7 @@ def Firm_List(request):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         serializer.validated_data
-        return Response('ok')
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['GET', 'POST'])
@@ -57,7 +93,7 @@ def Architect_List(request):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         serializer.validated_data
-        return Response('ok')
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'POST'])
 def Project_List(request):
@@ -70,7 +106,7 @@ def Project_List(request):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         serializer.validated_data
-        return Response('ok')
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'POST'])    
 def Client_List(request):
@@ -83,4 +119,4 @@ def Client_List(request):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         serializer.validated_data
-        return Response('ok')
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
