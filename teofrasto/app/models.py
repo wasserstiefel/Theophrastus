@@ -11,6 +11,8 @@ class Firm(models.Model):
     country = models.CharField(max_length=255, default='Norway')
     class Meta:
         ordering = ["id"]
+    def __str__(self) -> str:
+        return self.firm_name
 
 
 
